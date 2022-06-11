@@ -49,7 +49,6 @@ MOTOR2_HOMING_ANGLE = -int((34.7/2 + 60.24 + 0.9) / 40 * STEPS_PER_ROTATION * MI
 MOTOR2_POLARITY     = -1
 
 # pen positions
-# TODO: fine-tune pen down position
 PEN_DOWN_DEG = 65.5
 PEN_DOWN_MS = int(PEN_DOWN_DEG / 360 * STEPS_PER_ROTATION * MICROSTEPS)
 PEN_UP_DEG = 40

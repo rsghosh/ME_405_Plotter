@@ -133,7 +133,7 @@ The following table shows the VREF values we used:
 
 ## Task Diagram
 
-(incomplete)
+![Task Diagram](Images/ME405_term_project_task_diagram.jpg?raw=true)
 
 ## Kinematics
 
@@ -150,3 +150,21 @@ We then used these equations in the NewtonRaphson function in [tasks.py](https:/
 ![Kinematics steps 1-2](Images/ME_405_HW2_hand_calcs_1.jpg?raw=true)
 
 ![Kinematics steps 3-5](Images/ME_405_HW2_hand_calcs_2.jpg?raw=true)
+
+## Program Flow
+
+[tasks.py](https://github.com/rsghosh/ME_405_Plotter/blob/master/Python_Code/tasks.py) contains the main function that runs on the Nucleo. The program proceeds in the following steps:
+- Read an hpgl file and split it into separate commands
+- convert target positions into millimeters
+- Interpolate between points so that the minimum distnance between any two points is less than or equal to `MAX_MM_DIST` (which we set to 0.5mm)
+- Use Newton-Raphson to convert the positions to theta angles for the motors
+- Convert theta angles to numbers in units of microsteps that can be sent to the TMC4210s as the X_TARGET
+- Configure the TMC4210 and TMC2208 chips
+- Home all three steppers
+- Wait for a button press
+- Start the two tasks:
+  - task_cmds: reads through the commands and sends them to the TMC4210s
+  - task_comms: sends the current command to the PC via UART to be plotted on the screen
+- Disable the motors once the end of the command list has been reached
+
+More details on the individual functions can be found in the [documentation for the python files.](https://rsghosh.github.io/ME_405_Plotter/)
